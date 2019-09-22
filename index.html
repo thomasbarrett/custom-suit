@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - OBJLoader + MTLLoader</title>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/ec135c73c5.js"></script>
+        <link rel="stylesheet" href="css/index.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/108/three.min.js"></script>
+	</head>
+	<body>
+        <header>
+            <img class="speedo" src="images/speedo-logo-small.webp" alt="Speedo">
+            <div>
+                <a href="https://www.speedousa.com/women">Women</a>
+                <a href="https://www.speedousa.com/men">Men</a>
+                <a href="https://www.speedousa.com/kids">Kids</a>
+                <a href="https://www.speedousa.com/goggles">Goggles</a>
+                <a href="https://www.speedousa.com/gear">Gear</a>
+                <a href="https://www.speedousa.com/team">Team</a>
+                <a href="https://www.speedousa.com/sales">Sales</a>
+                <a href="https://www.speedousa.com/">Customize</a>
+            </div>
+            <div>
+                <i class="fas fa-search"></i>
+                <span>Account</span>
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </header>
+        <div class="customization">
+            <h1>Customization Options</h1>
+            <h2>Stitching</h2>
+            <div class="stitching row">
+                <div class='red square'></div>
+                <div class='orange square'></div>
+                <div class='yellow square'></div>
+                <div class='green square'></div>
+                <div class='blue square'></div>
+                <div class='purple square'></div>
+                <div class='black square'></div>
+                <div class='white square'></div>
+            </div>
+            <h2>Fabric</h2>
+            <div class="fabric row">
+                <div class='red square'></div>
+                <div class='yellow square'></div>
+                <div class='green square'></div>
+                <div class='blue square'></div>
+                <div class='black square'></div>
+                <div class='white square'></div>
+            </div>
+            <h2>Liner</h2>
+            <div class="liner row">
+                <div class='red square'></div>
+                <div class='yellow square'></div>
+                <div class='green square'></div>
+                <div class='blue square'></div>
+                <div class='black square'></div>
+                <div class='white square'></div>
+            </div>
+            <h2>Strap</h2>
+            <div class="strap row">
+                <div class='red square'></div>
+                <div class='yellow square'></div>
+                <div class='green square'></div>
+                <div class='blue square'></div>
+                <div class='black square'></div>
+                <div class='white square'></div>
+            </div>
+            <h2>Front</h2>
+            <div class="front row">
+                <img class='square zebra' src="/prints/zebra-icon.png"></img>
+                <img class='square mondrion' src="/prints/mondrion-icon.png"></img>
+            </div>
+        </div>
+        <script type="module">
+            import {stitching, fabric, liner, strap, front} from './src/index.js'
+            
+            document.querySelector('.stitching .red.square').addEventListener('click', () => stitching(0xff0000));
+            document.querySelector('.stitching .orange.square').addEventListener('click', () => stitching(0xffa500));
+            document.querySelector('.stitching .yellow.square').addEventListener('click', () => stitching(0xffff00));
+            document.querySelector('.stitching .green.square').addEventListener('click', () => stitching(0x00ff00));
+            document.querySelector('.stitching .blue.square').addEventListener('click', () => stitching(0x0000ff));
+            document.querySelector('.stitching .purple.square').addEventListener('click', () => stitching(0xff00ff));
+            document.querySelector('.stitching .black.square').addEventListener('click', () => stitching(0x000000));
+            document.querySelector('.stitching .white.square').addEventListener('click', () => stitching(0xffffff));
+
+            document.querySelector('.fabric .red.square').addEventListener('click', () => fabric(0xff0000));
+            document.querySelector('.fabric .yellow.square').addEventListener('click', () => fabric(0xffff00));
+            document.querySelector('.fabric .green.square').addEventListener('click', () => fabric(0x00ff00));
+            document.querySelector('.fabric .blue.square').addEventListener('click', () => fabric(0x0000ff));
+            document.querySelector('.fabric .black.square').addEventListener('click', () => fabric(0x000000));
+            document.querySelector('.fabric .white.square').addEventListener('click', () => fabric(0xffffff));
+
+            document.querySelector('.liner .red.square').addEventListener('click', () => liner(0xff0000));
+            document.querySelector('.liner .yellow.square').addEventListener('click', () => liner(0xffff00));
+            document.querySelector('.liner .green.square').addEventListener('click', () => liner(0x00ff00));
+            document.querySelector('.liner .blue.square').addEventListener('click', () => liner(0x0000ff));
+            document.querySelector('.liner .black.square').addEventListener('click', () => liner(0x000000));
+            document.querySelector('.liner .white.square').addEventListener('click', () => liner(0xffffff));
+
+            document.querySelector('.front .zebra.square').addEventListener('click', () => front("prints/zebra.png"));
+            document.querySelector('.front .mondrion.square').addEventListener('click', () => front("prints/mondrion.png"));
+    
+            document.querySelector('.strap .red.square').addEventListener('click', () => strap(0xff0000));
+            document.querySelector('.strap .yellow.square').addEventListener('click', () => strap(0xffff00));
+            document.querySelector('.strap .green.square').addEventListener('click', () => strap(0x00ff00));
+            document.querySelector('.strap .blue.square').addEventListener('click', () => strap(0x0000ff));
+            document.querySelector('.strap .black.square').addEventListener('click', () => strap(0x000000));
+            document.querySelector('.strap .white.square').addEventListener('click', () => strap(0xffffff));
+           
+        </script>
+	</body>
+</html>

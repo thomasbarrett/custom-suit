@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    display: grid;
+    height: 100vh;
+    grid-template-rows: min-content minmax(0, 1fr);
+    grid-template-columns: 50% 50%;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+    border-bottom: 1px solid rgb(217,234,231);
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+header img.speedo {
+    width: 135px;
+    height: auto;
+}
+
+header a {
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    font-size: 14px;
+    color: black;
+}
+
+header a:hover {
+    color: rgb(235, 52, 46);
+}
+
+header span, header i {
+    font-weight: light;
+    margin: 0 5px;
+    font-size: 14px;
+    color: rgb(86,89,94);
+}
+
+canvas {
+    max-height: 100%;
+    margin: auto;
+}
+
+.customization {
+    padding: 24px;
+    overflow: scroll;
+}
+
+.customization h1 {
+    margin: 0;
+}
+
+.red {
+    background: red;
+}
+
+.orange {
+    background: orange;
+}
+
+.purple {
+    background: purple;
+}
+
+.yellow {
+    background: yellow;
+}
+
+.green {
+    background: green;
+}
+
+.blue {
+    background: blue;
+}
+
+.black {
+    background: black;
+}
+
+.white {
+    background: white;
+}
+
+.row {
+    display: flex;
+    overflow: scroll;
+}
+.square {
+    display: block;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid rgb(217,234,231);
+}
+
+.square.selected {
+    border: 1px solid rgb(18,121,201);
+}
