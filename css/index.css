@@ -4,6 +4,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     display: grid;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     grid-template-rows: min-content minmax(0, 1fr);
     grid-template-columns: 50% 50%;
 }
@@ -46,12 +47,12 @@ canvas {
 }
 
 .customization {
-    padding: 24px;
+    padding: 48px;
     overflow: scroll;
 }
 
 .customization h1 {
-    margin: 0;
+    margin: 24px 0;
 }
 
 .red {
@@ -88,7 +89,7 @@ canvas {
 
 .row {
     display: flex;
-    overflow: scroll;
+    flex-wrap: wrap;
 }
 .square {
     display: block;
@@ -101,4 +102,8 @@ canvas {
 
 .square.selected {
     border: 1px solid rgb(18,121,201);
+}
+
+.hidden {
+    display: none;
 }

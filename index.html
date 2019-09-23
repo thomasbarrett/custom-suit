@@ -29,87 +29,105 @@
             </div>
         </header>
         <div class="customization">
-            <h1>Customization Options</h1>
-            <h2>Stitching</h2>
-            <div class="stitching row">
-                <div class='red square'></div>
-                <div class='orange square'></div>
-                <div class='yellow square'></div>
-                <div class='green square'></div>
-                <div class='blue square'></div>
-                <div class='purple square'></div>
-                <div class='black square'></div>
-                <div class='white square'></div>
-            </div>
-            <h2>Fabric</h2>
-            <div class="fabric row">
-                <div class='red square'></div>
-                <div class='yellow square'></div>
-                <div class='green square'></div>
-                <div class='blue square'></div>
-                <div class='black square'></div>
-                <div class='white square'></div>
-            </div>
-            <h2>Liner</h2>
-            <div class="liner row">
-                <div class='red square'></div>
-                <div class='yellow square'></div>
-                <div class='green square'></div>
-                <div class='blue square'></div>
-                <div class='black square'></div>
-                <div class='white square'></div>
-            </div>
-            <h2>Strap</h2>
-            <div class="strap row">
-                <div class='red square'></div>
-                <div class='yellow square'></div>
-                <div class='green square'></div>
-                <div class='blue square'></div>
-                <div class='black square'></div>
-                <div class='white square'></div>
-            </div>
-            <h2>Front</h2>
-            <div class="front row">
-                <img class='square zebra' src="images/prints/zebra-icon.png"></img>
-                <img class='square mondrion' src="images/prints/mondrion-icon.png"></img>
-            </div>
+            <h1 class='title'></h1>
+            <div class="hidden row"></div>
         </div>
+        <script>
+            // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+            let vh = window.innerHeight * 0.01;
+            // Then we set the value in the --vh custom property to the root of the document
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+            // We listen to the resize event
+            window.addEventListener('resize', () => {
+            // We execute the same script as before
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            });
+        </script>
         <script type="module">
-            import {stitching, fabric, liner, strap, front} from './src/index.js'
+            import {stitching, fabric, liner, strap, front, left, right, modelNotifier} from './src/index.js'
             
-            document.querySelector('.stitching .red.square').addEventListener('click', () => stitching(0xff0000));
-            document.querySelector('.stitching .orange.square').addEventListener('click', () => stitching(0xffa500));
-            document.querySelector('.stitching .yellow.square').addEventListener('click', () => stitching(0xffff00));
-            document.querySelector('.stitching .green.square').addEventListener('click', () => stitching(0x00ff00));
-            document.querySelector('.stitching .blue.square').addEventListener('click', () => stitching(0x0000ff));
-            document.querySelector('.stitching .purple.square').addEventListener('click', () => stitching(0xff00ff));
-            document.querySelector('.stitching .black.square').addEventListener('click', () => stitching(0x000000));
-            document.querySelector('.stitching .white.square').addEventListener('click', () => stitching(0xffffff));
+            let colors = [
+                '#3C3C3C',
+                '#4287F5',
+                '#32A852',
+                "#FCBA03",
+                "#EB4034",
+                "#B6FFEA",
+                "#FCE2AE",
+                "#FFB3B3",
+                "#FFDCF7",
+                "#75D5FD",
+                "#B76CFD",
+                "#FF2281",
+                "#011FFD"
+            ];
+            
+            let activeElement = null;
 
-            document.querySelector('.fabric .red.square').addEventListener('click', () => fabric(0xff0000));
-            document.querySelector('.fabric .yellow.square').addEventListener('click', () => fabric(0xffff00));
-            document.querySelector('.fabric .green.square').addEventListener('click', () => fabric(0x00ff00));
-            document.querySelector('.fabric .blue.square').addEventListener('click', () => fabric(0x0000ff));
-            document.querySelector('.fabric .black.square').addEventListener('click', () => fabric(0x000000));
-            document.querySelector('.fabric .white.square').addEventListener('click', () => fabric(0xffffff));
+            let row = document.querySelector('.row');
+            colors.forEach(color => {
+                let colorElement = document.createElement('div');
+                colorElement.classList.add('square');
+                colorElement.style.background = color;
+                colorElement.onclick = () => {
+                    activeElement.forEach(element => {
+                        element.material = element.material.clone();
+                        element.material.color.set(parseInt(color.substr(1), 16));
+                    })
+                }
+                row.appendChild(colorElement);
+            })
 
-            document.querySelector('.liner .red.square').addEventListener('click', () => liner(0xff0000));
-            document.querySelector('.liner .yellow.square').addEventListener('click', () => liner(0xffff00));
-            document.querySelector('.liner .green.square').addEventListener('click', () => liner(0x00ff00));
-            document.querySelector('.liner .blue.square').addEventListener('click', () => liner(0x0000ff));
-            document.querySelector('.liner .black.square').addEventListener('click', () => liner(0x000000));
-            document.querySelector('.liner .white.square').addEventListener('click', () => liner(0xffffff));
+            modelNotifier.subscribe('front-side', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "Front"
+                activeElement = object;
+                console.log(object);
+                document.querySelector('.row').classList.remove('hidden');
+            });
 
-            document.querySelector('.front .zebra.square').addEventListener('click', () => front("images/prints/zebra.png"));
-            document.querySelector('.front .mondrion.square').addEventListener('click', () => front("images/prints/mondrion.png"));
-    
-            document.querySelector('.strap .red.square').addEventListener('click', () => strap(0xff0000));
-            document.querySelector('.strap .yellow.square').addEventListener('click', () => strap(0xffff00));
-            document.querySelector('.strap .green.square').addEventListener('click', () => strap(0x00ff00));
-            document.querySelector('.strap .blue.square').addEventListener('click', () => strap(0x0000ff));
-            document.querySelector('.strap .black.square').addEventListener('click', () => strap(0x000000));
-            document.querySelector('.strap .white.square').addEventListener('click', () => strap(0xffffff));
-           
+            modelNotifier.subscribe('back-strap', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "Back Strap";
+                activeElement = object;
+                document.querySelector('.row').classList.remove('hidden');
+            });
+
+            modelNotifier.subscribe('left-side', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "Left Side";
+                activeElement = object;
+                document.querySelector('.row').classList.remove('hidden');
+            });
+
+            modelNotifier.subscribe('right-side', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "Right Side";
+                activeElement = object;
+                document.querySelector('.row').classList.remove('hidden');
+            });
+
+            modelNotifier.subscribe('inner-lining', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "Inner Lining";
+                activeElement = object;
+                document.querySelector('.row').classList.remove('hidden');
+            });
+
+            modelNotifier.subscribe('upper-straps', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "Upper Straps";
+                activeElement = object;
+                document.querySelector('.row').classList.remove('hidden');
+            });
+
+            modelNotifier.subscribe('clear', (object) => {
+                let title = document.querySelector('.title');
+                title.innerText = "";
+                document.querySelector('.row').classList.add('hidden');
+            });
         </script>
 	</body>
 </html>
