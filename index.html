@@ -29,8 +29,19 @@
             </div>
         </header>
         <div class="customization">
-            <h1 class='title'></h1>
-            <div class="hidden row"></div>
+            <div>
+                <h1 class='toolbar'>
+                    <span class='title'>Front</span>
+                    <div>
+                        <button><i class="fas fa-caret-left"></i></button>
+                        <button><i class="fas fa-caret-right"></i></button>
+                    </div>
+                </h1>
+            </div>
+            <h2>Patterns</h2>
+            <div class="patterns row"></div>
+            <h2>Colors</h2>
+            <div class="colors row"></div>
         </div>
         <script>
             // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
@@ -66,7 +77,10 @@
             
             let activeElement = null;
 
-            let row = document.querySelector('.row');
+
+            let color_row = document.querySelector('.colors.row');
+            let patterns_row = document.querySelector('.patterns.row');
+
             colors.forEach(color => {
                 let colorElement = document.createElement('div');
                 colorElement.classList.add('square');
@@ -75,16 +89,128 @@
                     activeElement.forEach(element => {
                         element.material = element.material.clone();
                         element.material.color.set(parseInt(color.substr(1), 16));
+                        element.material.needsUpdate = true;
                     })
                 }
-                row.appendChild(colorElement);
+                color_row.appendChild(colorElement);
             })
+
+            let colorElement = document.createElement('div');
+            colorElement.classList.add('square');
+            colorElement.style.background = '#EEEEEE';
+            colorElement.onclick = () => {
+                activeElement.forEach(element => {
+
+                    let solid_map = THREE.ImageUtils.loadTexture('/images/prints/solid.jpg');
+                    solid_map.wrapT = THREE.MirroredRepeatWrapping;
+                    solid_map.wrapS = THREE.MirroredRepeatWrapping
+
+                    element.material = element.material.clone();
+                    element.material.map = solid_map;
+                    element.material.needsUpdate = true;
+                })
+            }
+            patterns_row.appendChild(colorElement);
+           
+            let zebraElement = document.createElement('div');
+            zebraElement.classList.add('square');
+            zebraElement.style.background = 'url("images/prints/zebra-icon.png")';
+            zebraElement.onclick = () => {
+                activeElement.forEach(element => {
+
+                    let zebra_map = THREE.ImageUtils.loadTexture('/images/prints/zebra.png');
+                    zebra_map.repeat.x = 0.5;
+                    zebra_map.repeat.y = 0.5;
+                    zebra_map.wrapT = THREE.MirroredRepeatWrapping;
+                    zebra_map.wrapS = THREE.MirroredRepeatWrapping
+
+                    element.material = element.material.clone();
+                    element.material.map = zebra_map;
+                    element.material.needsUpdate = true;
+                })
+            }
+            patterns_row.appendChild(zebraElement);
+
+            let checkeredElement = document.createElement('div');
+            checkeredElement.classList.add('square');
+            checkeredElement.style.background = 'url("images/prints/checkers-icon.png")';
+            checkeredElement.onclick = () => {
+                activeElement.forEach(element => {
+
+                    let checkers_map = THREE.ImageUtils.loadTexture('/images/prints/checkers.jpg');
+                    checkers_map.repeat.x = 0.5;
+                    checkers_map.repeat.y = 0.5;
+                    checkers_map.wrapT = THREE.MirroredRepeatWrapping;
+                    checkers_map.wrapS = THREE.MirroredRepeatWrapping
+
+                    element.material = element.material.clone();
+                    element.material.map = checkers_map;
+                    element.material.needsUpdate = true;
+                })
+            }
+            patterns_row.appendChild(checkeredElement);
+
+            let hexElement = document.createElement('div');
+            hexElement.classList.add('square');
+            hexElement.style.background = 'url("images/prints/hexagon-icon.png")';
+            hexElement.onclick = () => {
+                activeElement.forEach(element => {
+
+                    let checkers_map = THREE.ImageUtils.loadTexture('/images/prints/hexagon.jpg');
+                    checkers_map.repeat.x = 0.8;
+                    checkers_map.repeat.y = 0.8;
+                    checkers_map.wrapT = THREE.MirroredRepeatWrapping;
+                    checkers_map.wrapS = THREE.MirroredRepeatWrapping
+
+                    element.material = element.material.clone();
+                    element.material.map = checkers_map;
+                    element.material.needsUpdate = true;
+                })
+            }
+            patterns_row.appendChild(hexElement);
+
+            let zigElement = document.createElement('div');
+            zigElement.classList.add('square');
+            zigElement.style.background = 'url("images/prints/zigzag-icon.png")';
+            zigElement.onclick = () => {
+                activeElement.forEach(element => {
+
+                    let checkers_map = THREE.ImageUtils.loadTexture('/images/prints/zigzag.jpg');
+                    checkers_map.repeat.x = 0.8;
+                    checkers_map.repeat.y = 0.8;
+                    checkers_map.wrapT = THREE.RepeatWrapping;
+                    checkers_map.wrapS = THREE.RepeatWrapping
+
+                    element.material = element.material.clone();
+                    element.material.map = checkers_map;
+                    element.material.needsUpdate = true;
+                })
+            }
+            patterns_row.appendChild(zigElement);
+
+            let zigElement2 = document.createElement('div');
+            zigElement2.classList.add('square');
+            zigElement2.style.background = 'url("images/prints/zigzag2-icon.png")';
+            zigElement2.onclick = () => {
+                activeElement.forEach(element => {
+
+                    let checkers_map = THREE.ImageUtils.loadTexture('/images/prints/zigzag2.jpg');
+                    checkers_map.repeat.x = 0.8;
+                    checkers_map.repeat.y = 0.8;
+                    checkers_map.wrapT = THREE.RepeatWrapping;
+                    checkers_map.wrapS = THREE.RepeatWrapping
+
+                    element.material = element.material.clone();
+                    element.material.map = checkers_map;
+                    element.material.needsUpdate = true;
+                })
+            }
+            patterns_row.appendChild(zigElement2);
 
             modelNotifier.subscribe('front-side', (object) => {
                 let title = document.querySelector('.title');
                 title.innerText = "Front"
                 activeElement = object;
-                console.log(object);
                 document.querySelector('.row').classList.remove('hidden');
             });
 
@@ -123,11 +249,6 @@
                 document.querySelector('.row').classList.remove('hidden');
             });
 
-            modelNotifier.subscribe('clear', (object) => {
-                let title = document.querySelector('.title');
-                title.innerText = "";
-                document.querySelector('.row').classList.add('hidden');
-            });
         </script>
 	</body>
 </html>

@@ -60,7 +60,7 @@ function init() {
     // scene
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xffffff );
-    var ambientLight = new THREE.AmbientLight( 0xcccccc);
+    var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.6);
     scene.add( ambientLight );
     var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
     camera.add( pointLight );
